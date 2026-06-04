@@ -9,6 +9,19 @@
 
 <body>
 
+    <nav class="navbar">
+        <div class="nav-container">
+            <span class="nav-title">nss connect documentation</span>
+            <div class="nav-controls">
+                <span id="mode-text" class="mode-label">Presentation Mode</span>
+                <label class="switch">
+                    <input type="checkbox" id="mode-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
 
         <h1 class="title">NSS Workflow — System Design Flow</h1>
@@ -55,66 +68,337 @@
             <div class="flow">
 
                 <!-- Step 1 -->
+                <!-- ===================== PARTIAL PROFORMA ===================== -->
+
                 <div class="node">
                     Partial Proforma
                 </div>
 
-                <div class="attributes">
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
                     <ul>
-                        <li>Initial form submission</li>
+                        <li>College basic information submitted</li>
+                        <li>Principal details captured</li>
+                        <li>Programme Officer details submitted</li>
+                        <li>Unit request submitted for current year</li>
+                        <li>AISHE and institutional information collected</li>
+                        <li>User account generated for Programme Officer</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li><strong>Operation:</strong> partial_proforma</li>
+
+                        <li>
+                            <strong>College</strong><br>
+                            name,
+                            university,
+                            district,
+                            state,
+                            pincode,
+                            postal_address,
+                            block_or_ward,
+                            area,
+                            email,
+                            telephone,
+                            principal_name,
+                            principal_email,
+                            principal_phone,
+                            established_year,
+                            status_grants,
+                            status_minority,
+                            minority_type,
+                            is_autonomous,
+                            total_students_male,
+                            total_students_female,
+                            allowed_units_current_year,
+                            requested_units_current_year,
+                            units_request_status,
+                            c_aishe_code
+                        </li>
+
+                        <li>
+                            <strong>CustomUser</strong><br>
+                            email,
+                            first_name,
+                            last_name,
+                            phone,
+                            gender,
+                            role,
+                            password,
+                            is_active
+                        </li>
+
+                        <li>
+                            <strong>CollegePOProfile</strong><br>
+                            user,
+                            college,
+                            c_aishe_code,
+                            subject_taught,
+                            whatsapp_phone_number,
+                            date_of_appointment_as_po,
+                            orientation_year,
+                            is_primary
+                        </li>
+
                     </ul>
                 </div>
 
                 <div class="connector"></div>
 
-                <!-- Step 2 -->
-                <div class="node">
-                    Developer Approval (Director)
-                </div>
-
-                <div class="attributes">
-                    <ul>
-                        <li>isVerified = true</li>
-                        <li>role = DIRECTOR</li>
-                    </ul>
-                </div>
-
-                <div class="connector"></div>
-
-                <!-- Step 3 -->
-                <div class="node">
-                    College Approval by Director
-                </div>
-
-                <div class="attributes">
-                    <ul>
-                        <li>isVerified = true</li>
-                        <li>role = COLLEGE_PO</li>
-                    </ul>
-                </div>
+                <!-- OBJECTS CREATED -->
 
                 <div class="objects">
+
                     <div class="object-box">
                         College Object Created
                     </div>
 
                     <div class="object-box">
-                        PO Object Created
+                        Programme Officer User Created
+                        <br>
+                        (CustomUser)
                     </div>
+
+                    <div class="object-box">
+                        Programme Officer Profile Created
+                        <br>
+                        (CollegePOProfile)
+                    </div>
+
                 </div>
 
                 <div class="connector"></div>
 
-                <!-- Step 4 -->
+                <!-- Step 2 -->
+                <!-- ===================== DEVELOPER APPROVAL (DIRECTOR) ===================== -->
+
+                <div class="node">
+                    Developer Approval (Director)
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
+                    <ul>
+                        <li>Programme Officer approved</li>
+                        <li>User account activated</li>
+                        <li>Director permissions assigned</li>
+                        <li>Password reset required on first login</li>
+                        <li>University assignment completed</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            developer_approve_director
+                        </li>
+
+                        <li>
+                            <strong>CustomUser (Updated)</strong><br>
+                            role → DIRECTOR<br>
+                            is_verified → true<br>
+                            is_active → true<br>
+                            password → generated / assigned<br>
+                            must_change_password → true
+                        </li>
+
+                        <li>
+                            <strong>DirectorProfile (Created)</strong><br>
+                            user<br>
+                            university
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS CREATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        Existing PO User Updated
+                        <br>
+                        role → DIRECTOR
+                    </div>
+
+                    <div class="object-box">
+                        DirectorProfile Object Created
+                    </div>
+
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- Step 3 -->
+                <!-- ===================== COLLEGE APPROVAL BY DIRECTOR ===================== -->
+
+                <div class="node">
+                    College Approval by Director
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
+                    <ul>
+                        <li>College application reviewed and approved</li>
+                        <li>Programme Officer account verified</li>
+                        <li>Requested unit allocation processed</li>
+                        <li>Login credentials generated and shared</li>
+                        <li>Password update required at first login</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            college_approval_by_director
+                        </li>
+
+                        <li>
+                            <strong>CustomUser (Updated)</strong><br>
+                            is_verified → true<br>
+                            password → generated / assigned<br>
+                            must_change_password → true
+                        </li>
+
+                        <li>
+                            <strong>College (Updated)</strong><br>
+                            allowed_units_current_year<br>
+                            requested_units_current_year<br>
+                            units_request_status → APPROVED
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS UPDATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        Existing College Updated
+                        <br>
+                        unit allocation approved
+                    </div>
+
+                    <div class="object-box">
+                        College PO User Verified
+                    </div>
+
+                    <div class="object-box">
+                        Login Credentials &
+                        Notification Sent
+                    </div>
+
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- Step 4
                 <div class="node">
                     Promotion by Director
                 </div>
 
-                <div class="attributes">
+                <div class="attributes presentation-attr">
                     <ul>
                         <li>role assignment</li>
                         <li>district / area allocation</li>
                     </ul>
+                </div>
+                <div class="attributes developer-attr">
+                    <ul>
+                        <li>userService.updateRole(userId, 'PO'); allocationService.assignArea(userId, areaId)</li>
+                    </ul>
+                </div> -->
+                <!-- ===================== PO PROMOTION TO COORDINATOR ===================== -->
+
+                <div class="node">
+                    Promotion by Director
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
+                    <ul>
+                        <li>Programme Officer promoted to coordinator role</li>
+                        <li>District or Area jurisdiction assigned</li>
+                        <li>User verification completed</li>
+                        <li>Temporary credentials generated</li>
+                        <li>Appointment notification delivered</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            po_promotion_to_coordinator
+                        </li>
+
+                        <li>
+                            <strong>Authorization</strong><br>
+                            DirectorProfile.university
+                        </li>
+
+                        <li>
+                            <strong>CollegePOProfile (Updated)</strong><br>
+                            is_district_coordinator<br>
+                            is_area_coordinator
+                        </li>
+
+                        <li>
+                            <strong>CustomUser (Updated)</strong><br>
+                            is_verified → true<br>
+                            password → generated temporary password<br>
+                            must_change_password → true
+                        </li>
+
+                        <li>
+                            <strong>Validation</strong><br>
+                            Director university == College university
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS UPDATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        Programme Officer Updated
+                        <br>
+                        Coordinator Role Assigned
+                    </div>
+
+                    <div class="object-box">
+                        Temporary Credentials
+                        <br>
+                        Generated
+                    </div>
+
+                    <div class="object-box">
+                        Appointment Notification
+                        <br>
+                        Sent
+                    </div>
+
                 </div>
 
             </div>
@@ -128,37 +412,244 @@
 
             <div class="flow">
 
+                <!-- ===================== INVITE LEADER & PREVIOUS YEAR VOLUNTEERS ===================== -->
+
                 <div class="node">
                     Invite Leader & Previous Year Volunteers
                 </div>
 
-                <div class="attributes">
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
                     <ul>
-                        <li>Email</li>
-                        <li>120 Hours</li>
-                        <li>Special Camp eligibility</li>
-                        <li>isVerified = true</li>
-                        <li>isLeader = true</li>
+                        <li>Volunteer emails approved for registration</li>
+                        <li>Student Leader eligibility assigned</li>
+                        <li>120 Hours completion carried forward</li>
+                        <li>Special Camp participation retained</li>
+                        <li>Academic year registration enabled</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            invite_leader_and_previous_year_volunteers
+                        </li>
+
+                        <li>
+                            <strong>AllowedVolunteerEmail (Created)</strong><br>
+                            email<br>
+                            college<br>
+                            academic_year<br>
+                            is_student_leader<br>
+                            prev_120_completed<br>
+                            prev_camp_attended<br>
+                            added_by
+                        </li>
+
                     </ul>
                 </div>
 
                 <div class="connector"></div>
 
+                <!-- OBJECTS CREATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        AllowedVolunteerEmail
+                        <br>
+                        Records Created
+                    </div>
+
+                    <div class="object-box">
+                        Registration Eligibility
+                        <br>
+                        Enabled for Academic Year
+                    </div>
+
+                    <div class="object-box">
+                        Migration Flags Applied
+                        <br>
+                        (Leader / 120 Hours / Camp)
+                    </div>
+
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- ===================== VOLUNTEER ENROLLMENT ===================== -->
+
                 <div class="node">
                     Volunteer Enrollment
                 </div>
 
-                <div class="attributes">
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
                     <ul>
-                        <li>If Leader → can invite volunteers</li>
+                        <li>Volunteer enrolled for academic year</li>
+                        <li>College association established</li>
+                        <li>Student and guardian information recorded</li>
+                        <li>Previous participation history captured</li>
+                        <li>Leadership eligibility and approval tracked</li>
                     </ul>
                 </div>
 
-                <div class="objects">
-                    <div class="object-box">Volunteer Object Created</div>
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            volunteer_enrollment
+                        </li>
+
+                        <li>
+                            <strong>VolunteerEnrollment (Created)</strong><br>
+                            volunteer<br>
+                            college<br>
+                            academic_year<br>
+                            enrollment_year<br>
+                            local_address<br>
+                            guardian_name<br>
+                            guardian_phone<br>
+                            guardian_address<br>
+                            guardian_relation<br>
+                            guardian_office<br>
+                            previous_nss<br>
+                            previous_ncc<br>
+                            completed_120_hours<br>
+                            attended_special_camp<br>
+                            is_accepted<br>
+                            vec_code<br>
+                            approved_by<br>
+                            approved_at<br>
+                            is_student_leader<br>
+                            leader_type<br>
+                            student_class<br>
+                            student_mobile<br>
+                            student_email<br>
+                            roll_no
+                        </li>
+
+                    </ul>
                 </div>
 
+                <div class="connector"></div>
+
+                <!-- OBJECTS CREATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        VolunteerEnrollment
+                        <br>
+                        Object Created
+                    </div>
+
+                    <div class="object-box">
+                        Volunteer Linked
+                        <br>
+                        To College & Academic Year
+                    </div>
+
+                    <div class="object-box">
+                        Enrollment Status
+                        <br>
+                        Recorded for Approval Workflow
+                    </div>
+
+                </div>
+                <!-- ===================== REPORT REVIEW & APPROVAL WORKFLOW ===================== -->
+
+                <div class="connector"></div>
+
+                <div class="node">
+                    Report Review & Approval Workflow
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
+                    <ul>
+                        <li>Programme Officer submits report for review</li>
+                        <li>Submitted reports become temporarily locked</li>
+                        <li>Director reviews and approves or rejects</li>
+                        <li>Approved reports become final and immutable</li>
+                        <li>Full audit history maintained</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Scope</strong><br>
+                            Event Reports<br>
+                            Export Reports
+                        </li>
+
+                        <li>
+                            <strong>Lifecycle</strong><br>
+                            Draft<br>
+                            Submitted<br>
+                            Approved<br>
+                            Rejected
+                        </li>
+
+                        <li>
+                            <strong>Submission Rules</strong><br>
+                            submission → report locked<br>
+                            no regeneration allowed<br>
+                            local edits disabled
+                        </li>
+
+                        <li>
+                            <strong>Director Review</strong><br>
+                            approve → permanent lock<br>
+                            reject → unlock for correction
+                        </li>
+
+                        <li>
+                            <strong>Audit Trail</strong><br>
+                            timestamp recorded<br>
+                            reviewer identity recorded<br>
+                            lifecycle history preserved
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS UPDATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        Report Status
+                        <br>
+                        Updated
+                    </div>
+
+                    <div class="object-box">
+                        Report Lock State
+                        <br>
+                        Controlled
+                    </div>
+
+                    <div class="object-box">
+                        Audit History
+                        <br>
+                        Recorded
+                    </div>
+
+                </div>
             </div>
+
+
         </section>
 
 
@@ -169,54 +660,303 @@
 
             <div class="flow">
 
-                <div class="node">Create Event</div>
+                <!-- ===================== CREATE EVENT ===================== -->
 
-                <div class="attributes">
+                <div class="node">
+                    Create Event
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
                     <ul>
-                        <li>leaders[ ARRAY ]</li>
+                        <li>Event information submitted</li>
+                        <li>Participating NGOs associated</li>
+                        <li>Target colleges selected</li>
+                        <li>Volunteer capacity configured</li>
+                        <li>Event hours and instructions published</li>
                     </ul>
                 </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            create_event
+                        </li>
+
+                        <li>
+                            <strong>Event (Created)</strong><br>
+                            name<br>
+                            description<br>
+                            location<br>
+                            date<br>
+                            time<br>
+                            event_type<br>
+                            event_category<br>
+                            volunteers_needed<br>
+                            hours_credited<br>
+                            special_instructions<br>
+                            is_all_colleges<br>
+                            created_by<br>
+                            ngos<br>
+                            invited_colleges
+                        </li>
+
+                        <li>
+                            <strong>NGO</strong><br>
+                            name
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS CREATED -->
 
                 <div class="objects">
-                    <div class="object-box">Event Object Created</div>
+
+                    <div class="object-box">
+                        Event Object Created
+                    </div>
+
+                    <div class="object-box">
+                        NGOs Linked
+                        <br>
+                        (Created if required)
+                    </div>
+
+                    <div class="object-box">
+                        Invited Colleges Linked
+                    </div>
+
                 </div>
 
                 <div class="connector"></div>
 
-                <div class="node">Mark Event as Interested</div>
+                <!-- ===================== MARK EVENT AS INTERESTED ===================== -->
+
+                <div class="node">
+                    Mark Event as Interested
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
+                    <ul>
+                        <li>Volunteer expressed interest in event</li>
+                        <li>Volunteer added to participation queue</li>
+                        <li>Event organizer notified</li>
+                        <li>Interest recorded for event tracking</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            mark_event_as_interested
+                        </li>
+
+                        <li>
+                            <strong>Validation</strong><br>
+                            CustomUser.role
+                        </li>
+
+                        <li>
+                            <strong>VolunteerProfile</strong><br>
+                            id
+                        </li>
+
+                        <li>
+                            <strong>Event (Updated)</strong><br>
+                            id<br>
+                            interested_volunteers
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS UPDATED -->
 
                 <div class="objects">
-                    <div class="object-box">Attendance List[ ARRAY ] Created</div>
+
+                    <div class="object-box">
+                        Event Updated
+                        <br>
+                        interested_volunteers Modified
+                    </div>
+
+                    <div class="object-box">
+                        Volunteer Profile Linked
+                        <br>
+                        To Event Interest List
+                    </div>
+
+                    <div class="object-box">
+                        Event Creator
+                        <br>
+                        Notification Sent
+                    </div>
+
                 </div>
 
-                <div class="attributes">
+                <div class="connector"></div>
+
+                <!-- ===================== MARK ATTENDANCE ===================== -->
+
+                <div class="node">
+                    Mark Attendance
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
                     <ul>
-                        <li>Email</li>
-                        <li>UUID</li>
+                        <li>Student leader records attendance</li>
+                        <li>Attended volunteers confirmed</li>
+                        <li>Attendance status updated for event</li>
+                        <li>Participation notifications sent</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            mark_attendance_by_leader
+                        </li>
+
+                        <li>
+                            <strong>Authorization</strong><br>
+                            CustomUser.role<br>
+                            VolunteerEnrollment.is_student_leader
+                        </li>
+
+                        <li>
+                            <strong>VolunteerEnrollment</strong><br>
+                            college<br>
+                            academic_year
+                        </li>
+
+                        <li>
+                            <strong>Event (Updated)</strong><br>
+                            id<br>
+                            is_attendance_finalized<br>
+                            attended_volunteers
+                        </li>
+
+                        <li>
+                            <strong>VolunteerProfile</strong><br>
+                            id
+                        </li>
+
+                        <li>
+                            <strong>EventReport (Updated)</strong><br>
+                            status
+                        </li>
+
                     </ul>
                 </div>
 
                 <div class="connector"></div>
 
-                <div class="node">Mark Attendance</div>
+                <!-- OBJECTS UPDATED -->
 
-                <div class="attributes">
+                <div class="objects">
+
+                    <div class="object-box">
+                        Event Updated
+                        <br>
+                        attended_volunteers Modified
+                    </div>
+
+                    <div class="object-box">
+                        Attendance Status
+                        <br>
+                        Recorded / Finalized
+                    </div>
+
+                    <div class="object-box">
+                        Volunteer
+                        <br>
+                        Attendance Notification Sent
+                    </div>
+
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- ===================== ATTENDANCE APPROVAL BY PO ===================== -->
+
+                <div class="node">
+                    Attendance Approval by PO
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
                     <ul>
-                        <li>Hours calculated</li>
-                        <li>Only attended volunteers list</li>
+                        <li>Attendance reviewed and approved</li>
+                        <li>Attendance records finalized</li>
+                        <li>Further attendance changes restricted</li>
+                        <li>Volunteers informed of finalized attendance</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            attendance_approval_by_po
+                        </li>
+
+                        <li>
+                            <strong>Authorization</strong><br>
+                            CustomUser.role
+                        </li>
+
+                        <li>
+                            <strong>Event (Updated)</strong><br>
+                            id<br>
+                            is_attendance_finalized → true<br>
+                            attendance_finalized_at<br>
+                            attendance_finalized_by<br>
+                            date
+                        </li>
+
                     </ul>
                 </div>
 
                 <div class="connector"></div>
 
-                <div class="node">Attendance Approval by PO</div>
+                <!-- OBJECTS UPDATED -->
 
-                <div class="attributes">
-                    <ul>
-                        <li>Remove volunteer UUID from event</li>
-                        <li>Append event.id → volunteer.attendedEvents[ ARRAY ]</li>
-                        <li>Runtime hour calculation</li>
-                    </ul>
+                <div class="objects">
+
+                    <div class="object-box">
+                        Event Updated
+                        <br>
+                        Attendance Finalized
+                    </div>
+
+                    <div class="object-box">
+                        Attendance Records Locked
+                    </div>
+
+                    <div class="object-box">
+                        Volunteer Attendance
+                        <br>
+                        Notification Sent
+                    </div>
+
                 </div>
 
             </div>
@@ -230,25 +970,284 @@
 
             <div class="flow">
 
-                <div class="node">Generate & Submit Enrollment List</div>
+                <!-- ===================== GENERATE & SUBMIT ENROLLMENT LIST ===================== -->
 
-                <div class="attributes">
+                <div class="node">
+                    Generate & Submit Enrollment List
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
                     <ul>
-                        <li>Digitally signed by Director</li>
-                        <li>Profile locked</li>
-                        <li>No edits allowed after lock</li>
+                        <li>Enrollment reports generated for academic year</li>
+                        <li>Volunteer and college statistics consolidated</li>
+                        <li>Student enrollment list prepared</li>
+                        <li>Calculated values and summaries included</li>
+                        <li>Excel workbook generated with multiple report sheets</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            enrollment_report
+                        </li>
+
+                        <li>
+                            <strong>Input</strong><br>
+                            academic_year<br>
+                            report_type → ENROLLMENT
+                        </li>
+
+                        <li>
+                            <strong>Data Sources</strong><br>
+                            College<br>
+                            NSSUnit<br>
+                            CollegePOProfile<br>
+                            VolunteerEnrollment<br>
+                            VolunteerProfile
+                        </li>
+
+                        <li>
+                            <strong>Calculated Values</strong><br>
+                            Academic Year Range<br>
+                            VEC No<br>
+                            Caste Category Mapping<br>
+                            Full Name Generation<br>
+                            Year of Joining (YOJ)<br>
+                            Gender Indicator<br>
+                            My Bharat Status<br>
+                            Consolidated Statistics
+                        </li>
+
+                        <li>
+                            <strong>Transformations</strong><br>
+                            caste → category mapping<br>
+                            academic_year + enrollment_year → YOJ<br>
+                            names → uppercase full name<br>
+                            AISHE + YOJ + serial → VEC number<br>
+                            unit records → unit count
+                        </li>
+
                     </ul>
                 </div>
 
                 <div class="connector"></div>
 
-                <div class="node">Generate Project List Proforma</div>
+                <!-- OBJECTS CREATED -->
 
-                <div class="attributes">
+                <div class="objects">
+
+                    <div class="object-box">
+                        Proforma III Generated
+                        <br>
+                        Consolidated Enrollment Summary
+                    </div>
+
+                    <div class="object-box">
+                        Proforma IV Generated
+                        <br>
+                        Detailed Enrollment List
+                    </div>
+
+                    <div class="object-box">
+                        Multi-Sheet Excel Workbook
+                        <br>
+                        Export Generated
+                    </div>
+
+                </div>
+
+                <div class="connector"></div>
+                <!-- ===================== EVENT REPORT (PDF) ===================== -->
+
+                <!-- <div class="connector"></div> -->
+
+                <div class="node">
+                    Generate Event Report
+                    <br>
+                    (PDF)
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
                     <ul>
-                        <li>Alias: Activity List</li>
-                        <li>Fields → Calculations → Final values</li>
+                        <li>Event participation summarized</li>
+                        <li>Objectives and outcomes documented</li>
+                        <li>Beneficiary information included</li>
+                        <li>Event photographs attached</li>
+                        <li>Official PDF report generated</li>
                     </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            event_report_pdf
+                        </li>
+
+                        <li>
+                            <strong>Data Sources</strong><br>
+                            Event<br>
+                            EventReport
+                        </li>
+
+                        <li>
+                            <strong>Fields Used</strong><br>
+                            attended_volunteers<br>
+                            name<br>
+                            date<br>
+                            introduction<br>
+                            objectives<br>
+                            outcome<br>
+                            no_of_beneficiaries<br>
+                            photo_1<br>
+                            photo_2<br>
+                            photo_3
+                        </li>
+
+                        <li>
+                            <strong>Calculated Values</strong><br>
+                            male_count<br>
+                            female_count<br>
+                            total_participants
+                        </li>
+
+                        <li>
+                            <strong>Transformations</strong><br>
+                            gender aggregation → participant summary<br>
+                            event fields → report sections<br>
+                            image fields → photograph pages
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS CREATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        Event Report PDF
+                        <br>
+                        Generated
+                    </div>
+
+                    <div class="object-box">
+                        Participation Statistics
+                        <br>
+                        Calculated
+                    </div>
+
+                    <div class="object-box">
+                        Event Snapshot
+                        <br>
+                        Export Created
+                    </div>
+
+                </div>
+                <!-- ===================== GENERATE PROJECT LIST PROFORMA ===================== -->
+
+                <div class="node">
+                    Generate Project List Proforma
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
+                    <ul>
+                        <li>Activity reports generated for academic year</li>
+                        <li>Event participation statistics consolidated</li>
+                        <li>Attendance records prepared for each event</li>
+                        <li>Participation and beneficiary counts calculated</li>
+                        <li>Excel workbook generated with summary and attendance sheets</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            project_list_proforma
+                        </li>
+
+                        <li>
+                            <strong>Input</strong><br>
+                            academic_year<br>
+                            report_type → EVENTS
+                        </li>
+
+                        <li>
+                            <strong>Data Sources</strong><br>
+                            College<br>
+                            NSSUnit<br>
+                            Event<br>
+                            EventReport<br>
+                            VolunteerProfile
+                        </li>
+
+                        <li>
+                            <strong>Calculated Values</strong><br>
+                            Academic Year<br>
+                            Number of Students Enrolled<br>
+                            Total Unique Participants<br>
+                            Male / Female / Total Counts<br>
+                            Organized By<br>
+                            Beneficiaries<br>
+                            Full Name Generation<br>
+                            Time Formatting<br>
+                            Venue Formatting<br>
+                            Attendance Sheet Values<br>
+                            Total Expenditure
+                        </li>
+
+                        <li>
+                            <strong>Transformations</strong><br>
+                            distinct volunteer IDs → participation count<br>
+                            verified enrollments → enrolled count<br>
+                            gender aggregation → event statistics<br>
+                            hours_credited → max hours<br>
+                            report snapshot → beneficiary values<br>
+                            names → uppercase full name<br>
+                            location → uppercase venue
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS CREATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        Proforma XII-A Generated
+                        <br>
+                        Brief Report of Activities
+                    </div>
+
+                    <div class="object-box">
+                        NSS Attendance Record
+                        <br>
+                        Generated Per Finalized Event
+                    </div>
+
+                    <div class="object-box">
+                        Multi-Sheet Excel Workbook
+                        <br>
+                        Export Generated
+                    </div>
+
                 </div>
 
             </div>
@@ -262,29 +1261,255 @@
 
             <div class="flow">
 
-                <div class="node">Details of Campsite</div>
+                <!-- ===================== DETAILS OF CAMPSITE ===================== -->
 
-                <div class="objects">
-                    <div class="object-box">Special Camp Object Created</div>
+                <div class="node">
+                    Details of Campsite
                 </div>
 
-                <div class="attributes">
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
                     <ul>
-                        <li>Volunteer downloads undertaking form</li>
+                        <li>Campsite logistics submitted</li>
+                        <li>Programme Officers assigned</li>
+                        <li>Accommodation and travel details recorded</li>
+                        <li>Student participation capacity captured</li>
+                        <li>Location and contact information documented</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            details_of_campsite
+                        </li>
+
+                        <li>
+                            <strong>CampSiteProforma (Created)</strong><br>
+                            camp<br>
+                            submitted_by<br>
+                            programme_officers<br>
+                            number_of_students<br>
+                            village_name<br>
+                            distance_from_college_km<br>
+                            accommodation_address<br>
+                            post<br>
+                            taluka<br>
+                            district<br>
+                            contact_person_name<br>
+                            contact_person_address<br>
+                            contact_phone<br>
+                            nearest_transport<br>
+                            area_map
+                        </li>
+
                     </ul>
                 </div>
 
                 <div class="connector"></div>
 
-                <div class="node">Special Camp Roster (7 Days)</div>
+                <!-- OBJECTS CREATED -->
 
-                <div class="attributes">
+                <div class="objects">
+
+                    <div class="object-box">
+                        CampSiteProforma
+                        <br>
+                        Object Created
+                    </div>
+
+                    <div class="object-box">
+                        Linked To
+                        <br>
+                        Existing Special Camp
+                    </div>
+
+                    <div class="object-box">
+                        Campsite Logistics
+                        <br>
+                        Recorded
+                    </div>
+
+                </div>
+
+                <!-- <div class="connector"></div> -->
+
+                <!-- ===================== VOLUNTEER SPECIAL CAMP UNDERTAKING ===================== -->
+
+                <div class="connector"></div>
+
+                <div class="node">
+                    Volunteer Special Camp Undertaking
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
+                    <ul>
+                        <li>Volunteer confirms participation in special camp</li>
+                        <li>Undertaking submitted for approval records</li>
+                        <li>Consent linked to selected camp</li>
+                        <li>Submission timestamp recorded</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            volunteer_special_camp_undertaking
+                        </li>
+
+                        <li>
+                            <strong>SpecialCampUndertaking (Created)</strong><br>
+                            camp<br>
+                            volunteer<br>
+                            submitted_at
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS CREATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        SpecialCampUndertaking
+                        <br>
+                        Object Created
+                    </div>
+
+                    <div class="object-box">
+                        Volunteer Linked
+                        <br>
+                        To Selected Special Camp
+                    </div>
+
+                    <div class="object-box">
+                        Participation Consent
+                        <br>
+                        Recorded
+                    </div>
+
+                </div>
+                <div class="connector"></div>
+                <!-- ===================== SPECIAL CAMP ATTENDANCE LIST ===================== -->
+
+                <div class="connector"></div>
+
+                <div class="node">
+                    --------CURRENT----------<br>Special Camp Attendance List
+                    <br>
+                    (PO / Leader View)
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
+                    <ul>
+                        <li>Eligible volunteers displayed for attendance</li>
+                        <li>Undertaking submission status verified</li>
+                        <li>Attendance availability validated</li>
+                        <li>Volunteer presence tracked</li>
+                        <li>Attendance readiness shown before finalization</li>
+                    </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            special_camp_attendance_list
+                        </li>
+
+                        <li>
+                            <strong>Permissions</strong><br>
+                            IsAuthenticated<br>
+                            College PO / Student Leader
+                        </li>
+
+                        <li>
+                            <strong>Data Sources</strong><br>
+                            SpecialCamp<br>
+                            VolunteerProfile<br>
+                            SpecialCampUndertaking<br>
+                            SpecialCampAttendance
+                        </li>
+
+                        <li>
+                            <strong>Fields Used</strong><br>
+                            camp.id<br>
+                            volunteer.id<br>
+                            volunteer.user.first_name<br>
+                            volunteer.user.last_name
+                        </li>
+
+                        <li>
+                            <strong>Calculated Values</strong><br>
+                            is_present<br>
+                            has_undertaking<br>
+                            attendance_allowed
+                        </li>
+
+                        <li>
+                            <strong>Validation</strong><br>
+                            today ≥ camp.end_date<br>
+                            attendance not finalized
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS GENERATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        Volunteer Attendance List
+                        <br>
+                        Generated
+                    </div>
+
+                    <div class="object-box">
+                        Consent &
+                        Attendance Status
+                        <br>
+                        Evaluated
+                    </div>
+
+                    <div class="object-box">
+                        Attendance Eligibility
+                        <br>
+                        Determined
+                    </div>
+
+                </div>
+                <div class="node"> --------PENDING----------<br>Special Camp Roster (7 Days)
+                </div>
+
+                <div class="attributes presentation-attr">
                     <ul>
                         <li>Day, Date, Time, Activity</li>
                         <li>Daily attendance tracking</li>
                         <li>Final bulk attendance</li>
                         <li>attended_spl_camp_for_year = true</li>
                         <li>special_camps_attended[ ARRAY ]</li>
+                    </ul>
+                </div>
+                <div class="attributes developer-attr">
+                    <ul>
+                        <li>rosterService.create(7); attendance.trackDaily(); volunteer.attended_spl_camp_for_year =
+                            true</li>
                     </ul>
                 </div>
 
@@ -299,29 +1524,146 @@
 
             <div class="flow">
 
-                <div class="node">Generate Consolidated Camp Report</div>
+                <div class="node">-------PENDING-------<br>Generate Consolidated Camp Report
+                </div>
 
-                <div class="attributes">
+                <div class="attributes presentation-attr">
                     <ul>
                         <li>Fields → calculations → final output</li>
+                    </ul>
+                </div>
+                <div class="attributes developer-attr">
+                    <ul>
+                        <li>campReportService.consolidate(campId)</li>
                     </ul>
                 </div>
 
                 <div class="connector"></div>
 
-                <div class="node">Generate 120 Hours Report</div>
+                <!-- ===================== GENERATE 120 HOURS REPORT ===================== -->
 
-                <div class="attributes">
+                <div class="node">
+                    Generate 120 Hours Report
+                </div>
+
+                <!-- PRESENTATION / NON TECH MODE -->
+                <div class="attributes presentation-attr">
                     <ul>
-                        <li>Digitally signed by Director</li>
-                        <li>Final approval stage</li>
+                        <li>Qualified volunteers identified</li>
+                        <li>Service hours calculated and validated</li>
+                        <li>Special Camp completion verified</li>
+                        <li>Report submitted for review and approval</li>
+                        <li>Official workbook generated and locked after approval</li>
                     </ul>
+                </div>
+
+                <!-- DEVELOPER / TECH MODE -->
+                <div class="attributes developer-attr">
+                    <ul>
+
+                        <li>
+                            <strong>Operation:</strong>
+                            hours_120_report
+                        </li>
+
+                        <li>
+                            <strong>Permissions</strong><br>
+                            IsCollegePO
+                        </li>
+
+                        <li>
+                            <strong>Input</strong><br>
+                            academic_year<br>
+                            report_type → HOURS_120
+                        </li>
+
+                        <li>
+                            <strong>Data Sources</strong><br>
+                            College<br>
+                            NSSUnit<br>
+                            CollegePOProfile<br>
+                            VolunteerProfile<br>
+                            Event<br>
+                            SpecialCampAttendance
+                        </li>
+
+                        <li>
+                            <strong>Calculated Values</strong><br>
+                            Academic Year Range<br>
+                            Total Hours<br>
+                            Qualification Threshold (≥120)<br>
+                            VEC Number<br>
+                            Volunteer Full Name<br>
+                            Special Camp Status<br>
+                            Programme Officers List
+                        </li>
+
+                        <li>
+                            <strong>Transformations</strong><br>
+                            finalized event hours → total_hours<br>
+                            total_hours ≥ 120 → qualified volunteers<br>
+                            special camp attendance → YES / NO<br>
+                            names → uppercase format<br>
+                            AISHE + serial → VEC generation
+                        </li>
+
+                        <!-- <li>
+                            <strong>Report Workflow</strong><br>
+                            Draft → Submitted → Approved / Rejected<br>
+                            submission lock enabled<br>
+                            approval → permanent lock<br>
+                            rejection → unlock for correction<br>
+                            audit logs recorded
+                        </li> -->
+
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- OBJECTS CREATED -->
+
+                <div class="objects">
+
+                    <div class="object-box">
+                        120 Hours Report
+                        <br>
+                        Sheet Generated
+                    </div>
+
+                    <div class="object-box">
+                        Qualified Volunteer List
+                        <br>
+                        Generated
+                    </div>
+
+                    <div class="object-box">
+                        Excel Workbook
+                        <br>
+                        Export Generated
+                    </div>
+
                 </div>
 
             </div>
         </section>
 
     </div>
+
+    <script>
+        const toggleInput = document.getElementById('mode-toggle');
+        const modeText = document.getElementById('mode-text');
+
+        toggleInput.addEventListener('change', () => {
+            if (toggleInput.checked) {
+                modeText.innerText = 'Developer Mode';
+                document.body.classList.add('dev-mode');
+            } else {
+                modeText.innerText = 'Presentation Mode';
+                document.body.classList.remove('dev-mode');
+            }
+        });
+    </script>
 
 </body>
 
