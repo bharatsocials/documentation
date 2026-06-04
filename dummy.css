@@ -1,0 +1,248 @@
+/* =========================
+   GLOBAL LAYOUT
+========================= */
+
+body {
+    margin: 0;
+    padding: 30px;
+    font-family: Arial, sans-serif;
+    background: #f6f7fb;
+    color: #111;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* =========================
+   PHASE BLOCKS
+========================= */
+
+.phase {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 35px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.phase-title {
+    text-align: left;
+    font-size: 20px;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #eee;
+}
+
+/* =========================
+   FLOW CONTAINER
+========================= */
+
+.flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* =========================
+   NODE (PROCESS STEP)
+========================= */
+
+.node {
+    min-width: 280px;
+    padding: 14px 28px;
+    border: 2px solid #222;
+    border-radius: 999px; /* oval shape */
+    background: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   ATTRIBUTES BOX
+========================= */
+
+.attributes {
+    margin-top: 10px;
+    min-width: 320px;
+    background: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 14px;
+    position: relative;
+}
+
+.attributes ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.attributes li {
+    margin: 4px 0;
+}
+
+/* =========================
+   OBJECT BOX (CREATED DATA)
+========================= */
+
+.objects {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    align-items: center;
+}
+
+.object-box {
+    min-width: 260px;
+    padding: 10px 15px;
+    border: 2px dashed #555;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 13px;
+    text-align: center;
+    color: #333;
+}
+
+/* =========================
+   CONNECTOR LINE
+========================= */
+
+.connector {
+    width: 3px;
+    height: 35px;
+    background: #222;
+    margin: 8px 0;
+    border-radius: 2px;
+}
+
+/* =========================
+   HOVER EFFECTS (optional but useful for demos)
+========================= */
+
+.node:hover {
+    background: #f0f6ff;
+    border-color: #2b6fff;
+    cursor: pointer;
+}
+
+.object-box:hover {
+    border-color: #000;
+    background: #f7f7f7;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .node {
+        min-width: 220px;
+        font-size: 14px;
+    }
+
+    .attributes {
+        min-width: 260px;
+    }
+
+    .object-box {
+        min-width: 220px;
+    }
+}
+
+/* =========================
+   LEGEND (FIXED - NO OVERLAP)
+========================= */
+
+.legend {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+/* grid spacing safe */
+.legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-top: 15px;
+}
+
+/* each item container */
+.legend-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+/* =========================
+   LEGEND VERSIONS (ISOLATED)
+   (DO NOT reuse real classes)
+========================= */
+
+.legend-node {
+    padding: 10px 18px;
+    border: 2px solid #222;
+    border-radius: 999px;
+    font-weight: bold;
+    background: #fff;
+    font-size: 13px;
+}
+
+.legend-attr {
+    background: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    width: 100%;
+}
+
+.legend-attr ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.legend-object {
+    border: 2px dashed #555;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    width: 100%;
+    background: #fff;
+}
+
+.legend-line {
+    width: 3px;
+    height: 35px;
+    background: #222;
+    border-radius: 2px;
+}
+
+/* text under each */
+.legend-text {
+    font-size: 12px;
+    color: #444;
+    max-width: 180px;
+    line-height: 1.4;
+}

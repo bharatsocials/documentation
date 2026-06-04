@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>NSS Workflow Diagram</title>
+    <link rel="stylesheet" href="dummy.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1 class="title">NSS Workflow — System Design Flow</h1>
+        <!-- ===================== LEGEND ===================== -->
+        <section class="legend">
+
+            <h2 class="phase-title">Legend / Mapping</h2>
+
+            <div class="legend-grid">
+
+                <div class="legend-card">
+                    <div class="legend-node">Process Node</div>
+                    <div class="legend-text">Represents a workflow step / action</div>
+                </div>
+
+                <div class="legend-card">
+                    <div class="legend-attr">
+                        <ul>
+                            <li>key = value</li>
+                            <li>rules / state</li>
+                        </ul>
+                    </div>
+                    <div class="legend-text">Attributes / business rules</div>
+                </div>
+
+                <div class="legend-card">
+                    <div class="legend-object">Object Created</div>
+                    <div class="legend-text">Database / entity creation</div>
+                </div>
+
+                <div class="legend-card">
+                    <div class="legend-line"></div>
+                    <div class="legend-text">Flow connector (sequence)</div>
+                </div>
+
+            </div>
+
+        </section>
+        <!-- ===================== PHASE 1 ===================== -->
+        <section class="phase">
+
+            <h2 class="phase-title">Phase 1: System Setup</h2>
+
+            <div class="flow">
+
+                <!-- Step 1 -->
+                <div class="node">
+                    Partial Proforma
+                </div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Initial form submission</li>
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- Step 2 -->
+                <div class="node">
+                    Developer Approval (Director)
+                </div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>isVerified = true</li>
+                        <li>role = DIRECTOR</li>
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- Step 3 -->
+                <div class="node">
+                    College Approval by Director
+                </div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>isVerified = true</li>
+                        <li>role = COLLEGE_PO</li>
+                    </ul>
+                </div>
+
+                <div class="objects">
+                    <div class="object-box">
+                        College Object Created
+                    </div>
+
+                    <div class="object-box">
+                        PO Object Created
+                    </div>
+                </div>
+
+                <div class="connector"></div>
+
+                <!-- Step 4 -->
+                <div class="node">
+                    Promotion by Director
+                </div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>role assignment</li>
+                        <li>district / area allocation</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ===================== PHASE 2 ===================== -->
+        <section class="phase">
+
+            <h2 class="phase-title">Phase 2: Volunteer Onboarding</h2>
+
+            <div class="flow">
+
+                <div class="node">
+                    Invite Leader & Previous Year Volunteers
+                </div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Email</li>
+                        <li>120 Hours</li>
+                        <li>Special Camp eligibility</li>
+                        <li>isVerified = true</li>
+                        <li>isLeader = true</li>
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <div class="node">
+                    Volunteer Enrollment
+                </div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>If Leader → can invite volunteers</li>
+                    </ul>
+                </div>
+
+                <div class="objects">
+                    <div class="object-box">Volunteer Object Created</div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ===================== PHASE 3 ===================== -->
+        <section class="phase">
+
+            <h2 class="phase-title">Phase 3: Event Management</h2>
+
+            <div class="flow">
+
+                <div class="node">Create Event</div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>leaders[ ARRAY ]</li>
+                    </ul>
+                </div>
+
+                <div class="objects">
+                    <div class="object-box">Event Object Created</div>
+                </div>
+
+                <div class="connector"></div>
+
+                <div class="node">Mark Event as Interested</div>
+
+                <div class="objects">
+                    <div class="object-box">Attendance List[ ARRAY ] Created</div>
+                </div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Email</li>
+                        <li>UUID</li>
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <div class="node">Mark Attendance</div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Hours calculated</li>
+                        <li>Only attended volunteers list</li>
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <div class="node">Attendance Approval by PO</div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Remove volunteer UUID from event</li>
+                        <li>Append event.id → volunteer.attendedEvents[ ARRAY ]</li>
+                        <li>Runtime hour calculation</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ===================== PHASE 4 ===================== -->
+        <section class="phase">
+
+            <h2 class="phase-title">Phase 4: Reporting</h2>
+
+            <div class="flow">
+
+                <div class="node">Generate & Submit Enrollment List</div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Digitally signed by Director</li>
+                        <li>Profile locked</li>
+                        <li>No edits allowed after lock</li>
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <div class="node">Generate Project List Proforma</div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Alias: Activity List</li>
+                        <li>Fields → Calculations → Final values</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ===================== PHASE 5 ===================== -->
+        <section class="phase">
+
+            <h2 class="phase-title">Phase 5: Special Camp</h2>
+
+            <div class="flow">
+
+                <div class="node">Details of Campsite</div>
+
+                <div class="objects">
+                    <div class="object-box">Special Camp Object Created</div>
+                </div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Volunteer downloads undertaking form</li>
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <div class="node">Special Camp Roster (7 Days)</div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Day, Date, Time, Activity</li>
+                        <li>Daily attendance tracking</li>
+                        <li>Final bulk attendance</li>
+                        <li>attended_spl_camp_for_year = true</li>
+                        <li>special_camps_attended[ ARRAY ]</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ===================== PHASE 6 ===================== -->
+        <section class="phase">
+
+            <h2 class="phase-title">Phase 6: Final Reporting</h2>
+
+            <div class="flow">
+
+                <div class="node">Generate Consolidated Camp Report</div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Fields → calculations → final output</li>
+                    </ul>
+                </div>
+
+                <div class="connector"></div>
+
+                <div class="node">Generate 120 Hours Report</div>
+
+                <div class="attributes">
+                    <ul>
+                        <li>Digitally signed by Director</li>
+                        <li>Final approval stage</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+</body>
+
+</html>
