@@ -1,6 +1,10 @@
 /* =========================
-   GLOBAL LAYOUT
+   GLOBAL RESET & LAYOUT
 ========================= */
+
+* {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -261,18 +265,74 @@ body.dev-mode .developer-attr {
 ========================= */
 
 @media (max-width: 768px) {
+    .container {
+        padding: 20px 12px;
+    }
+
+    .title {
+        font-size: 22px;
+        margin-bottom: 25px;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        gap: 12px;
+        padding: 10px 15px;
+        align-items: center;
+    }
+
+    .nav-title {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .nav-controls {
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .download-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 20px;
+    }
+
+    .phase {
+        padding: 15px 10px;
+        margin-bottom: 25px;
+    }
+
+    .phase-title {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
 
     .node {
-        min-width: 220px;
+        min-width: 0;
+        width: 100%;
+        max-width: 320px;
         font-size: 14px;
+        padding: 12px 20px;
     }
 
     .attributes {
-        min-width: 260px;
+        min-width: 0;
+        width: 100%;
+        max-width: 320px;
+        font-size: 13px;
+    }
+
+    .objects {
+        width: 100%;
     }
 
     .object-box {
-        min-width: 220px;
+        min-width: 0;
+        width: 100%;
+        max-width: 320px;
+        font-size: 12px;
     }
 }
 
@@ -399,4 +459,42 @@ body.dev-mode .developer-attr {
 
 .download-btn:hover .download-icon {
     transform: translateY(1.5px);
+}
+
+/* =========================
+   MOBILE TEXT WRAPPING & BADGES
+========================= */
+
+.node, .attributes, .object-box, li, strong, code, span {
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.status-badge.current {
+    background-color: #e6fcf5;
+    color: #0ca678;
+    border: 1px solid #c3fae8;
+}
+
+.status-badge.pending {
+    background-color: #fff9db;
+    color: #e67e22;
+    border: 1px solid #ffe066;
 }
